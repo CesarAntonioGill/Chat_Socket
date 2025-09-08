@@ -4,7 +4,7 @@ HOST = "127.0.0.1"
 PORT = 5000
 
 def main():
-    print("Cliente de chat (escribí mensajes y Enter; escribí 'éxito' para terminar)\n")
+    print("Cliente de chat (escribí mensajes y Enter; escribí 'exito' para terminar)\n")
     try:
         with socket.create_connection((HOST, PORT)) as s:
             while True:

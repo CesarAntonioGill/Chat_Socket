@@ -3,13 +3,12 @@ import sqlite3
 from datetime import datetime
 import threading
 
-HOST = "127.0.0.1"   # localhost
-PORT = 5000          # puerto del TP
+HOST = "127.0.0.1"   
+PORT = 5000          
 
 DB_NAME = "chat.db"
-print("Iniciando servidor...")
 
-# --- DB ---
+# --- Base de datos ---
 def init_db():
     """Crea la tabla si no existe."""
     try:
@@ -67,12 +66,12 @@ def handle_client(conn: socket.socket, addr):
                     break
                 mensaje = data.decode('utf-8', errors='replace').strip()
 
-                # Si el cliente envía 'éxito/exito', cerramos este cliente.
+                # Si el cliente envía 'exito', cerramos este cliente.
                 if mensaje.lower() in ("éxito", "exito"):
                     print(f"[~] Señal de fin recibida de {ip}")
                     break
 
-                save_message(mensaje, ip)  # Guardar en DB
+                save_message(mensaje, ip)  # Guardar en Base de Datos
 
                 ts = datetime.now().isoformat(timespec='seconds')
                 respuesta = f"Mensaje recibido: {ts}\n"
@@ -101,5 +100,6 @@ def accept_loop(server_sock: socket.socket):
 
 if __name__ == "__main__":
     init_db()
+    print("Iniciando servidor...")
     sock = init_socket()
     accept_loop(sock)
